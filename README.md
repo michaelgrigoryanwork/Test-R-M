@@ -19,8 +19,6 @@
 
 • Expect production level product and code - Code runs, pagination and detail page is opening with real data ✅
 
-• It is preferable to put the code on github and TBC should not be specified anywhere - ✅
-
 ## Bonus:
 • Offline Mode support (caching) - Half done, only image caching ❌
 
