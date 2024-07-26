@@ -28,8 +28,14 @@ extension CharactersService: CharactersServiceProtocol {
     }
     
     func getCharacters(ids: [String]) async throws -> [RMCharacter] {
-        let urlString = Config.characterURL + ids.joined(separator: ",")
-        let models: [RMCharacter] = try await apiManager.fetch(urlString: urlString)
+        guard !ids.isEmpty else {
+            throw CharactersServiceError.emptyIDList
+        }
+        let encodedIDs = ids.joined(separator: ",")
+        guard let url = URL(string: Config.characterURL + encodedIDs) else {
+            throw CharactersServiceError.invalidURL
+        }
+        let models: [RMCharacter] = try await apiManager.fetch(urlString: url.absoluteString)
         return models
     }
 }
@@ -37,5 +43,10 @@ extension CharactersService: CharactersServiceProtocol {
 private extension CharactersService {
     struct Config {
         static let characterURL = "https://rickandmortyapi.com/api/character/"
+    }
+    
+    enum CharactersServiceError: Error {
+        case emptyIDList
+        case invalidURL
     }
 }

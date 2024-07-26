@@ -27,22 +27,23 @@ final class APIManager: APIManagerProtocol {
     func fetch<T: Decodable>(urlString: String,
                              queryItems: [URLQueryItem],
                              reloadIgnoringLocalCacheData: Bool) async throws -> T {
-        let components = getURLComponents(urlString: urlString,
-                                          queryItems: queryItems)
-        guard let url = components?.url else {
+        guard let url = getURLComponents(urlString: urlString, queryItems: queryItems)?.url else {
             throw APIError.invalidURL
         }
+        
         let urlRequest = getURLRequest(url: url)
         let (data, response) = try await getSession(reloadIgnoringLocalCacheData: reloadIgnoringLocalCacheData)
             .data(for: urlRequest)
-        print(response)
+        
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+            throw APIError.invalidResponse
+        }
+        
         do {
             let decodedData = try getJSONDecoder().decode(T.self, from: data)
-            print(decodedData)
             return decodedData
         } catch {
-            print(error)
-            throw error
+            throw APIError.decodingError(error)
         }
     }
 }
@@ -54,8 +55,7 @@ private extension APIManager {
             config.requestCachePolicy = .reloadIgnoringLocalCacheData
             config.urlCache = nil
         }
-        let session = URLSession(configuration: config)
-        return session
+        return URLSession(configuration: config)
     }
     
     func getURLComponents(urlString: String, queryItems: [URLQueryItem]) -> URLComponents? {
@@ -80,5 +80,14 @@ private extension APIManager {
 private extension APIManager {
     enum HTTPMethod: String {
         case get = "GET"
+        case post = "POST"
+        case put = "PUT"
+        case delete = "DELETE"
+    }
+    
+    enum APIError: Error {
+        case invalidURL
+        case invalidResponse
+        case decodingError(Error)
     }
 }

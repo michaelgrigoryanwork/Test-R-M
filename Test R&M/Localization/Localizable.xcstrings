@@ -2,10 +2,24 @@
   "sourceLanguage" : "en",
   "strings" : {
     "📌 %@" : {
-
+      "localizations" : {
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📌 %@"
+          }
+        }
+      }
     },
     "🛸" : {
-
+      "localizations" : {
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🛸"
+          }
+        }
+      }
     },
     "alive" : {
       "extractionState" : "manual",
@@ -14,6 +28,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alive"
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ცოცხალი"
           }
         }
       }
@@ -26,6 +46,12 @@
             "state" : "translated",
             "value" : "All"
           }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ყველა"
+          }
         }
       }
     },
@@ -36,6 +62,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Characters"
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "პერსონაჟები"
           }
         }
       }
@@ -48,6 +80,12 @@
             "state" : "translated",
             "value" : "Created"
           }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "შექმნილია"
+          }
         }
       }
     },
@@ -58,6 +96,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Creation date"
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Შექმნის თარიღი"
           }
         }
       }
@@ -70,6 +114,12 @@
             "state" : "translated",
             "value" : "Dead"
           }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "მკვდარი"
+          }
         }
       }
     },
@@ -80,6 +130,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Episodes"
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ეპიზოდები"
           }
         }
       }
@@ -92,6 +148,12 @@
             "state" : "translated",
             "value" : "Female"
           }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ქალი"
+          }
         }
       }
     },
@@ -102,6 +164,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gender"
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "სქესი"
           }
         }
       }
@@ -114,6 +182,12 @@
             "state" : "translated",
             "value" : "Genderless"
           }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "გენდერული"
+          }
         }
       }
     },
@@ -124,6 +198,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Loading data..."
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "იტვირთება მონაცემები..."
           }
         }
       }
@@ -136,6 +216,12 @@
             "state" : "translated",
             "value" : "Male"
           }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "მამრობითი"
+          }
         }
       }
     },
@@ -146,6 +232,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No results for search, please try another text!"
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ძიების შედეგები არ არის, გთხოვთ სცადოთ სხვა ტექსტი!"
           }
         }
       }
@@ -158,6 +250,12 @@
             "state" : "translated",
             "value" : "Origin"
           }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "წარმოშობა"
+          }
         }
       }
     },
@@ -168,6 +266,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Species"
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "სახეობა"
           }
         }
       }
@@ -180,6 +284,12 @@
             "state" : "translated",
             "value" : "Type"
           }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ტიპი"
+          }
         }
       }
     },
@@ -190,6 +300,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unknown"
+          }
+        },
+        "ka-GE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "უცნობი"
           }
         }
       }

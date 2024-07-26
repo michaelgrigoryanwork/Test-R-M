@@ -6,30 +6,88 @@
 //
 
 import XCTest
+import Foundation
+@testable import Test_R_M // Replace with your actual module name
 
-final class Test_R_MTests: XCTestCase {
+class MockAPIManager: APIManagerProtocol {
+    var resultData: Data?
+    var resultResponse: URLResponse?
+    var resultError: Error?
+    
+    func fetch<T: Decodable>(urlString: String,
+                             queryItems: [URLQueryItem],
+                             reloadIgnoringLocalCacheData: Bool) async throws -> T {
+        if let error = resultError {
+            throw error
+        }
+        guard let data = resultData else {
+            fatalError("MockAPIManager: resultData is nil")
+        }
+        let decodedData = try JSONDecoder().decode(T.self, from: data)
+        return decodedData
+    }
+}
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class EpisodesServiceTests: XCTestCase {
+
+    var episodesService: EpisodesService!
+    var mockAPIManager: MockAPIManager!
+
+    override func setUp() {
+        super.setUp()
+        mockAPIManager = MockAPIManager()
+        episodesService = EpisodesService(apiManager: mockAPIManager)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testGetEpisodesSuccess() async throws {
+        let episodes = [RMEpisode(id: 0, name: "", characters: [])]
+        mockAPIManager.resultData = try JSONEncoder().encode(episodes)
+        mockAPIManager.resultError = nil
+        
+        let ids: [String] = ["1", "2"]
+        
+        let result = try await episodesService.getEpisodes(ids: ids)
+        
+        XCTAssertEqual(result, episodes)
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+    func testGetEpisodesFailure() async throws {
+        mockAPIManager.resultData = nil
+        mockAPIManager.resultError = URLError(.badURL) // Simulating a network error
+        
+        let ids: [String] = ["1", "2"]
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+        do {
+            _ = try await episodesService.getEpisodes(ids: ids)
+            XCTFail("Expected to throw an error")
+        } catch {
+            XCTAssertEqual((error as? URLError)?.code, URLError.Code.badURL)
         }
     }
 
+    func testGetOnlyEpisodeSuccess() async throws {
+        let episode = RMEpisode(id: 0, name: "", characters: [])
+        mockAPIManager.resultData = try JSONEncoder().encode(episode)
+        mockAPIManager.resultError = nil
+        
+        let id = "1"
+        
+        let result = try await episodesService.getOnlyEpisode(id: id)
+        
+        XCTAssertEqual(result, episode)
+    }
+
+    func testGetOnlyEpisodeFailure() async throws {
+        mockAPIManager.resultData = nil
+        mockAPIManager.resultError = URLError(.badURL) // Simulating a network error
+        
+        let id = "1"
+        
+        do {
+            _ = try await episodesService.getOnlyEpisode(id: id)
+            XCTFail("Expected to throw an error")
+        } catch {
+            XCTAssertEqual((error as? URLError)?.code, URLError.Code.badURL)
+        }
+    }
 }

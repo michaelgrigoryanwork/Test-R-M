@@ -22,13 +22,26 @@ final class EpisodesService {
 
 extension EpisodesService: EpisodesServiceProtocol {
     func getEpisodes(ids: [String]) async throws -> [RMEpisode] {
-        let urlString = Config.episodeURL + ids.joined(separator: ",")
-        let models: [RMEpisode] = try await apiManager.fetch(urlString: urlString)
+        guard !ids.isEmpty else {
+            throw EpisodesServiceError.emptyIDList
+        }
+        let encodedIDs = ids.joined(separator: ",")
+        guard let url = URL(string: Config.episodeURL + encodedIDs) else {
+            throw EpisodesServiceError.invalidURL
+        }
+        let models: [RMEpisode] = try await apiManager.fetch(urlString: url.absoluteString)
         return models
     }
     
     func getOnlyEpisode(id: String) async throws -> RMEpisode {
-        let model: RMEpisode = try await apiManager.fetch(urlString: Config.episodeURL + id)
+        guard !id.isEmpty else {
+            throw EpisodesServiceError.invalidID
+        }
+        let urlString = Config.episodeURL + id
+        guard let url = URL(string: urlString) else {
+            throw EpisodesServiceError.invalidURL
+        }
+        let model: RMEpisode = try await apiManager.fetch(urlString: url.absoluteString)
         return model
     }
 }
@@ -36,5 +49,11 @@ extension EpisodesService: EpisodesServiceProtocol {
 private extension EpisodesService {
     struct Config {
         static let episodeURL = "https://rickandmortyapi.com/api/episode/"
+    }
+    
+    enum EpisodesServiceError: Error {
+        case emptyIDList
+        case invalidID
+        case invalidURL
     }
 }

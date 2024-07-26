@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RMEpisode: Identifiable, Decodable, Equatable, Hashable {
+struct RMEpisode: Identifiable, Codable, Equatable, Hashable {
     static func == (lhs: RMEpisode, rhs: RMEpisode) -> Bool {
         return lhs.id == rhs.id
     }

@@ -11,7 +11,7 @@ struct RMCharacterCharactersResponse: Decodable, Equatable {
     let results: [RMCharacter]
 }
 
-struct RMCharacter: Identifiable, Decodable, Equatable, Hashable {
+struct RMCharacter: Identifiable, Codable, Equatable, Hashable {
     static func == (lhs: RMCharacter, rhs: RMCharacter) -> Bool {
         return lhs.id == rhs.id
     }
